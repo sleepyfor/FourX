@@ -2,7 +2,7 @@
 
 ## To Know
 
-FourX is the continuation of the dead PvP client Destiny
+FourX is the continuation of the discontinued PvP client Destiny
 
 ## Version
 FourX is for Minecraft 1.8.8
