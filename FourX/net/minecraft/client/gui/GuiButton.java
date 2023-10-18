@@ -79,9 +79,9 @@ public class GuiButton extends Gui
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         if (!visible) return;
         hovered = mouseX >= xPosition && mouseY >= yPosition && mouseX < xPosition + width && mouseY < yPosition + height;
-        length = RenderingUtils.progressiveAnimation(length, hovered ? width : 0, 0.8);
+        length = enabled ? RenderingUtils.progressiveAnimation(length, hovered ? width : 0, 0.8) : 0;
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        var color = hovered ? Client.INSTANCE.getClientColor() : -1;
+        var color = enabled ? (hovered ? Client.INSTANCE.getClientColor() : -1) : Color.darkGray.getRGB();
         var font = Client.INSTANCE.getFontManager().getArial17();
         RenderingUtils.drawRectangle(xPosition, yPosition, xPosition + width, yPosition + height, new Color(10, 10, 10, 60).getRGB());
         RenderingUtils.drawRectangle((float) xPosition, (float) (yPosition + height - 1), (float) (xPosition + length), yPosition + height, -1);

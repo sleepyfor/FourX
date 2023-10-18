@@ -4,7 +4,6 @@ import lombok.var;
 import net.fourx.Client;
 import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 
 import java.awt.*;
