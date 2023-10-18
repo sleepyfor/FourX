@@ -30,7 +30,7 @@ public class ToggleGUI extends GuiScreen {
         Gui.drawRect(x, y, x + width, y + height, new Color(10, 10, 10, 250).getRGB());
         for (ToggleButton addon : addons) {
             var hovered = isHovered(mouseX, mouseY, (float) addon.x, (float) addon.y, (float) addon.width, (float) addon.height);
-            addon.color = hovered ? new Color(152, 218, 226, 255).getRGB() : -1;
+            addon.color = hovered ? Client.INSTANCE.getClientColor() : -1;
             addon.drawComponent(mouseX, mouseY, hovered);
         }
         GlStateManager.popMatrix();

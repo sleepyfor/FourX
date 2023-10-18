@@ -17,6 +17,7 @@ import java.io.IOException;
 public enum Client {
     INSTANCE;
     private final String name = "FourX", version = "0.1.0";
+    public final int clientColor = new Color(152, 255, 255, 255).getRGB();
     private AddonManager addonManager;
     private FontManager fontManager;
     private boolean running = true;

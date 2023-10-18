@@ -22,6 +22,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class RenderingUtils {
 
+    public static double rainbowState;
+
     public static void drawRectangle(float startX, float startY, float endX, float endY, int color) {
         GL11.glDisable(2929);
         GL11.glEnable(3042);
@@ -46,6 +48,14 @@ public class RenderingUtils {
         GL11.glHint(3155, 4352);
     }
 
+    public static void drawBorderedRectangle(float startX, float startY, float endX, float endY, float width, int color, int borderColor) {
+       drawRectangle(startX, startY, endX, endY, color);
+       drawRectangle(startX + 1 - width, startY, startX + 1, endY, borderColor);
+       drawRectangle(startX + 1 - width, startY + 1 - width, endX - 1 + width, startY + 1, borderColor);
+        drawRectangle(endX - 1, startY, endX - 1 + width, endY, borderColor);
+        drawRectangle(startX + 1 - width, endY - 1, endX - 1 + width, endY - 1 + width, borderColor);
+    }
+
     public static void drawImg(ResourceLocation loc, double posX, double posY, double width, double height) {
         GlStateManager.pushMatrix();
         GlStateManager.enableAlpha();
@@ -63,6 +73,12 @@ public class RenderingUtils {
         worldrenderer.pos(posX, posY, 0.0D).tex(0.0F * f, 0.0F * f1).endVertex();
         tessellator.draw();
         GlStateManager.popMatrix();
+    }
+
+    public static Color getRainbow(final int delay) {
+        rainbowState = Math.ceil((double) ((System.currentTimeMillis() + delay) / 8L));
+        rainbowState %= 270.0;
+        return Color.getHSBColor((float) (rainbowState / 270.0), 0.4f, 1f);
     }
 
     public static double progressiveAnimation( double now,  double desired,  double speed) {

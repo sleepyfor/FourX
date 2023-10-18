@@ -37,6 +37,7 @@ import java.util.concurrent.FutureTask;
 import javax.imageio.ImageIO;
 
 import net.fourx.Client;
+import net.fourx.addon.addons.ToggleSprint;
 import net.fourx.gui.hud.ClientUI;
 import net.fourx.gui.toggle.ToggleGUI;
 import net.minecraft.block.Block;
@@ -233,7 +234,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private Entity renderViewEntity;
     public Entity pointedEntity;
     public EffectRenderer effectRenderer;
-    private final Session session;
+    public Session session;
     private boolean isGamePaused;
 
     /** The font renderer used for displaying and measuring text */
@@ -1236,7 +1237,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     public int getLimitFramerate()
     {
-        return this.theWorld == null && this.currentScreen != null ? 30 : this.gameSettings.limitFramerate;
+        return this.theWorld == null && this.currentScreen != null ? 120 : this.gameSettings.limitFramerate;
     }
 
     public boolean isFramerateLimitBelowMax()
@@ -1890,6 +1891,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
                 if (Keyboard.getEventKeyState()) {
                     KeyBinding.onTick(k);
+                    if(k == Minecraft.getMinecraft().gameSettings.keyBindToggleSprint.getKeyCode())
+                        Client.INSTANCE.getAddonManager().getAddon(ToggleSprint.class).setState(!Client.INSTANCE.getAddonManager().getAddon(ToggleSprint.class).isState());
                     if (k == Keyboard.KEY_U && !(currentScreen instanceof ToggleGUI))
                         displayGuiScreen(new ToggleGUI());
                 }
