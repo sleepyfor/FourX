@@ -9,6 +9,7 @@ import net.arikia.dev.drpc.DiscordUser;
 import net.arikia.dev.drpc.callbacks.ReadyCallback;
 import net.fourx.manager.AddonManager;
 import net.fourx.manager.font.FontManager;
+import org.lwjgl.opengl.Display;
 
 import java.awt.*;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public enum Client {
         startRPC();
         addonManager = new AddonManager();
         initFont();
+        Display.setTitle(getName() + " " + getVersion());
     }
 
     private void initFont() {
