@@ -1,4 +1,4 @@
-# FourXMod
+# FourX
 <img align="left" alt="Cover" src="FourX/assets/minecraft/images/logo.png" height="420" /> 
 
 ## To Know
