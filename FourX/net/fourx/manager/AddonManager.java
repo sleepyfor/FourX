@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AddonManager {
-    private Map<Class, Addon> addons = new LinkedHashMap<>();
+    private final Map<Class, Addon> addons = new LinkedHashMap<>();
 
     public AddonManager() {
         registerAddon(ToggleSprint.class, new ToggleSprint());
