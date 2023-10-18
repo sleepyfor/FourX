@@ -17,6 +17,9 @@ public class AddonManager {
         registerAddon(FPSHud.class, new FPSHud());
         registerAddon(Keystrokes.class, new Keystrokes());
         registerAddon(WatermarkHud.class, new WatermarkHud());
+        registerAddon(CPSHud.class, new CPSHud());
+        registerAddon(PotionDisplay.class, new PotionDisplay());
+        registerAddon(ArmorDisplay.class, new ArmorDisplay());
     }
 
     public void registerAddon(Class clazz, Addon addon) {

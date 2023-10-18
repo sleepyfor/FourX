@@ -11,13 +11,16 @@ import java.util.Objects;
 @Getter
 public class FontManager {
 
-    private CustomFontRenderer arial17, arial15;
+    private final CustomFontRenderer arial17, arial15, jbm14;
 
     public FontManager() throws IOException, FontFormatException {
         var fileLocation = "fonts/arial.ttf";
+        var jbmLocation = "fonts/JetBrainsMono.ttf";
         arial17 = new CustomFontRenderer(Font.createFont(0, Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(fileLocation)))
-                .deriveFont(0, 17f));
+                .deriveFont(Font.PLAIN, 17f));
         arial15 = new CustomFontRenderer(Font.createFont(0, Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(fileLocation)))
-                .deriveFont(0, 15f));
+                .deriveFont(Font.PLAIN, 15f));
+        jbm14 = new CustomFontRenderer(Font.createFont(0, Objects.requireNonNull(ClassLoader.getSystemClassLoader().getResourceAsStream(jbmLocation)))
+                .deriveFont(Font.PLAIN, 14f));
     }
 }

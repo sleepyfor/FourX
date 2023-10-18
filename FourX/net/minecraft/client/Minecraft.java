@@ -462,8 +462,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     /**
      * Starts the game: initializes the canvas, the title, the settings, etcetera.
      */
-    private void startGame() throws LWJGLException, IOException
-    {
+    private void startGame() throws LWJGLException {
+        this.displayWidth = 1600;
+        this.displayHeight = 900;
         this.gameSettings = new GameSettings(this, this.mcDataDir);
         this.defaultResourcePacks.add(this.mcDefaultResourcePack);
         this.startTimerHackThread();
@@ -508,18 +509,14 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         this.mcResourceManager.registerReloadListener(this.standardGalacticFontRenderer);
         this.mcResourceManager.registerReloadListener(new GrassColorReloadListener());
         this.mcResourceManager.registerReloadListener(new FoliageColorReloadListener());
-        AchievementList.openInventory.setStatStringFormatter(new IStatStringFormat()
-        {
-            public String formatString(String p_74535_1_)
+        AchievementList.openInventory.setStatStringFormatter(p_74535_1_ -> {
+            try
             {
-                try
-                {
-                    return String.format(p_74535_1_, GameSettings.getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()));
-                }
-                catch (Exception exception)
-                {
-                    return "Error: " + exception.getLocalizedMessage();
-                }
+                return String.format(p_74535_1_, GameSettings.getKeyDisplayString(Minecraft.this.gameSettings.keyBindInventory.getKeyCode()));
+            }
+            catch (Exception exception)
+            {
+                return "Error: " + exception.getLocalizedMessage();
             }
         });
         this.mouseHelper = new MouseHelper();
@@ -604,7 +601,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private void createDisplay() throws LWJGLException
     {
         Display.setResizable(true);
-        Display.setTitle("Minecraft 1.8.8");
+        Display.setTitle("FourX is loading...");
 
         try
         {

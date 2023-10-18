@@ -30,7 +30,7 @@ public class ToggleGUI extends GuiScreen {
         Gui.drawRect(x, y, x + width, y + height, new Color(10, 10, 10, 250).getRGB());
         for (ToggleButton addon : addons) {
             var hovered = isHovered(mouseX, mouseY, (float) addon.x, (float) addon.y, (float) addon.width, (float) addon.height);
-            addon.color = hovered ? Client.INSTANCE.getClientColor() : -1;
+            addon.color = addon.addon.isState() ? Client.INSTANCE.getClientColor() : (hovered ? Client.INSTANCE.getClientColor() : -1);
             addon.drawComponent(mouseX, mouseY, hovered);
         }
         GlStateManager.popMatrix();
@@ -54,6 +54,10 @@ public class ToggleGUI extends GuiScreen {
         addons.add(new ToggleButton(x + 124, y + 24, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(FPSHud.class), -1));
         addons.add(new ToggleButton(x + 2, y + 46, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(Keystrokes.class), -1));
         addons.add(new ToggleButton(x + 124, y + 46, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(WatermarkHud.class), -1));
+        addons.add(new ToggleButton(x + 2, y + 68, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(CordsHud.class), -1));
+        addons.add(new ToggleButton(x + 124, y + 68, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(CPSHud.class), -1));
+        addons.add(new ToggleButton(x + 2, y + 90, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(PotionDisplay.class), -1));
+        addons.add(new ToggleButton(x + 124, y + 90, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(ArmorDisplay.class), -1));
     }
 
     @Override

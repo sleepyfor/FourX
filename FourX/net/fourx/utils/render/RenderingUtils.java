@@ -50,10 +50,10 @@ public class RenderingUtils {
 
     public static void drawBorderedRectangle(float startX, float startY, float endX, float endY, float width, int color, int borderColor) {
        drawRectangle(startX, startY, endX, endY, color);
-       drawRectangle(startX + 1 - width, startY, startX + 1, endY, borderColor);
-       drawRectangle(startX + 1 - width, startY + 1 - width, endX - 1 + width, startY + 1, borderColor);
-        drawRectangle(endX - 1, startY, endX - 1 + width, endY, borderColor);
-        drawRectangle(startX + 1 - width, endY - 1, endX - 1 + width, endY - 1 + width, borderColor);
+       drawRectangle(startX + 0.5f - width, startY, startX + 0.5f, endY, borderColor);
+       drawRectangle(startX + 0.5f - width, startY + 0.5f - width, endX - 0.5f + width, startY + 0.5f, borderColor);
+        drawRectangle(endX - 0.5f, startY, endX - 0.5f + width, endY, borderColor);
+        drawRectangle(startX + 0.5f - width, endY - 0.5f, endX - 0.5f + width, endY - 0.5f + width, borderColor);
     }
 
     public static void drawImg(ResourceLocation loc, double posX, double posY, double width, double height) {
