@@ -1427,6 +1427,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
      */
     public void shutdown()
     {
+        Client.INSTANCE.stopRPC();
         this.running = false;
     }
 

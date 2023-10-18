@@ -6,6 +6,8 @@ import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
+
+import net.fourx.Client;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -115,6 +117,7 @@ public class GuiIngame extends Gui
 
     public void renderGameOverlay(float partialTicks)
     {
+        Client.INSTANCE.updateRPC(mc.isSingleplayer() ? "Singleplayer" : "Multiplayer - " + mc.getCurrentServerData().serverIP, "Ingame");
         Gui.drawRect(0,0,0,0,0);
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         int i = scaledresolution.getScaledWidth();
