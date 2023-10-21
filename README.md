@@ -1,5 +1,5 @@
-# FourX
-<img align="left" alt="Cover" src="FourX/assets/minecraft/images/logo.png" height="420" /> 
+<h1 align="center">FourX</h1>
+<img align="left" alt="Cover" src="FourX/assets/minecraft/images/logo.png" height="420" width="420" /> 
 
 ## To Know
 
