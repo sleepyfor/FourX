@@ -3,6 +3,7 @@ package net.fourx.gui.hud;
 import lombok.var;
 import net.fourx.Client;
 import net.fourx.addon.addons.ArmorDisplay;
+import net.fourx.addon.addons.BedwarsAddon;
 import net.fourx.addon.addons.PotionDisplay;
 import net.fourx.addon.addons.ToggleSprint;
 import net.fourx.gui.hud.keystrokes.Keystrokes;
@@ -38,5 +39,7 @@ public class ClientUI extends GuiIngame {
             PotionDisplay.drawPotionStatus(scaledresolution);
         if (manager.getAddon(ArmorDisplay.class).isState())
             ArmorDisplay.drawItemsStatus(scaledresolution);
+        if (manager.getAddon(BedwarsAddon.class).isState())
+            BedwarsAddon.drawBedwarsOverlay(scaledresolution);
     }
 }

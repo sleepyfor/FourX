@@ -200,7 +200,7 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         Client.INSTANCE.updateRPC("Options", "In The Menus");
-        this.drawDefaultBackground();
+        //this.drawDefaultBackground();
         this.drawCenteredString(this.fontRendererObj, this.field_146442_a, this.width / 2, 15, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

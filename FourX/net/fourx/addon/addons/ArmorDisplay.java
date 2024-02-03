@@ -40,10 +40,8 @@ public class ArmorDisplay extends Addon {
             stuff.add(mc.thePlayer.getCurrentEquippedItem());
         }
 
-        Iterator var8 = stuff.iterator();
-
-        while (var8.hasNext()) {
-            errything = (ItemStack) var8.next();
+        for (Object o : stuff) {
+            errything = (ItemStack) o;
             if (mc.theWorld != null) {
                 RenderHelper.enableGUIStandardItemLighting();
                 split += 16;

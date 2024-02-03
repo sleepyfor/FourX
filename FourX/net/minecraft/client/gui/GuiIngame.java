@@ -118,7 +118,7 @@ public class GuiIngame extends Gui
 
     public void renderGameOverlay(float partialTicks)
     {
-        Client.INSTANCE.updateRPC(mc.isSingleplayer() ? "Singleplayer" : "Multiplayer - " + mc.getCurrentServerData().serverIP, "Ingame");
+        Client.INSTANCE.updateRPC(mc.isSingleplayer() ? "Singleplayer" : "Server: " + mc.getCurrentServerData().serverIP, "Ingame");
         Gui.drawRect(0,0,0,0,0);
         ScaledResolution scaledresolution = new ScaledResolution(this.mc);
         int i = scaledresolution.getScaledWidth();

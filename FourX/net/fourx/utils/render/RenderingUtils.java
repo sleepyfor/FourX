@@ -83,7 +83,7 @@ public class RenderingUtils {
 
     public static double progressiveAnimation( double now,  double desired,  double speed) {
         double dif = Math.abs(now - desired);
-        int fps = Minecraft.getDebugFPS();
+        int fps = 144;
         if (dif > 0.0) {
             double animationSpeed = MathUtils.roundToDecimalPlace(Math.min(10.0, Math.max(0.05, 144.0 / fps * (dif / 10.0) * speed)), 0.05);
             if (dif < animationSpeed) {

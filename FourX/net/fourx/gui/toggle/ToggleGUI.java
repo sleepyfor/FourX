@@ -25,7 +25,7 @@ public class ToggleGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        scale = (float) RenderingUtils.progressiveAnimation(scale, 1, 0.01);
+        scale = (float) RenderingUtils.progressiveAnimation(scale, 1, 0.6);
         RenderingUtils.scale(anchorX + (this.width / 2), (float) anchorY + (this.height / 2), scale);
         Gui.drawRect(x, y, x + width, y + height, new Color(10, 10, 10, 250).getRGB());
         for (ToggleButton addon : addons) {
@@ -58,6 +58,7 @@ public class ToggleGUI extends GuiScreen {
         addons.add(new ToggleButton(x + 124, y + 68, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(CPSHud.class), -1));
         addons.add(new ToggleButton(x + 2, y + 90, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(PotionDisplay.class), -1));
         addons.add(new ToggleButton(x + 124, y + 90, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(ArmorDisplay.class), -1));
+        addons.add(new ToggleButton(x + 2, y + 123, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(BedwarsAddon.class), -1));
     }
 
     @Override

@@ -20,6 +20,7 @@ public class AddonManager {
         registerAddon(CPSHud.class, new CPSHud());
         registerAddon(PotionDisplay.class, new PotionDisplay());
         registerAddon(ArmorDisplay.class, new ArmorDisplay());
+        registerAddon(BedwarsAddon.class, new BedwarsAddon());
     }
 
     public void registerAddon(Class clazz, Addon addon) {

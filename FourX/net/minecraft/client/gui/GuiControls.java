@@ -1,6 +1,8 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
@@ -156,8 +158,8 @@ public class GuiControls extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
         this.keyBindingList.drawScreen(mouseX, mouseY, partialTicks);
+//        RenderingUtils.drawRectangle();
         this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 8, 16777215);
         boolean flag = true;
 
@@ -171,6 +173,6 @@ public class GuiControls extends GuiScreen
         }
 
         this.buttonReset.enabled = !flag;
-        super.drawScreen(mouseX, mouseY, partialTicks);
+       // super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

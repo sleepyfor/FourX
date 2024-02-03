@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Callable;
+
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.material.Material;
@@ -93,6 +95,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
     private static final ResourceLocation locationRainPng = new ResourceLocation("textures/environment/rain.png");
     private static final ResourceLocation locationSnowPng = new ResourceLocation("textures/environment/snow.png");
     public static boolean anaglyphEnable;
+    public static double zoomAnim;
 
     /** Anaglyph field (0=R, 1=GB) */
     public static int anaglyphField;
@@ -215,6 +218,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
 
     public EntityRenderer(Minecraft mcIn, IResourceManager resourceManagerIn)
     {
+        zoomAnim = 1.0F;
         this.shaderIndex = shaderCount;
         this.useShader = false;
         this.frameCount = 0;
@@ -590,71 +594,58 @@ public class EntityRenderer implements IResourceManagerReloadListener
     /**
      * Changes the field of view of the player depending on if they are underwater or not
      */
-    private float getFOVModifier(float partialTicks, boolean p_78481_2_)
-    {
-        if (this.debugView)
-        {
+    private float getFOVModifier(float partialTicks, boolean p_78481_2_) {
+        if (this.debugView) {
             return 90.0F;
-        }
-        else
-        {
-            Entity entity = this.mc.getRenderViewEntity();
-            float f = 70.0F;
+        } else {
+            Entity var3 = this.mc.getRenderViewEntity();
+            float var4 = 70.0F;
 
-            if (p_78481_2_)
-            {
-                f = this.mc.gameSettings.fovSetting;
+            if (p_78481_2_) {
+                var4 = this.mc.gameSettings.fovSetting;
 
-                if (Config.isDynamicFov())
-                {
-                    f *= this.fovModifierHandPrev + (this.fovModifierHand - this.fovModifierHandPrev) * partialTicks;
+                if (Config.isDynamicFov()) {
+                    var4 *= this.fovModifierHandPrev + (this.fovModifierHand - this.fovModifierHandPrev) * partialTicks;
                 }
             }
 
-            boolean flag = false;
+            boolean zoomActive = false;
 
-            if (this.mc.currentScreen == null)
-            {
-                GameSettings gamesettings = this.mc.gameSettings;
-                flag = GameSettings.isKeyDown(this.mc.gameSettings.ofKeyBindZoom);
+            if (this.mc.currentScreen == null) {
+                GameSettings var10000 = this.mc.gameSettings;
+                zoomActive = GameSettings.isKeyDown(this.mc.gameSettings.ofKeyBindZoom);
             }
 
-            if (flag)
-            {
-                if (!Config.zoomMode)
-                {
+            if (zoomActive) {
+                if (!Config.zoomMode) {
                     Config.zoomMode = true;
                     this.mc.gameSettings.smoothCamera = true;
                 }
-
-                if (Config.zoomMode)
-                {
-                    f /= 4.0F;
+                zoomAnim = RenderingUtils.progressiveAnimation(zoomAnim, 4.0F, 0.001);
+                if (Config.zoomMode) {
+                    var4 /= zoomAnim;
                 }
-            }
-            else if (Config.zoomMode)
-            {
+            } else if (Config.zoomMode) {
                 Config.zoomMode = false;
                 this.mc.gameSettings.smoothCamera = false;
+                zoomAnim = RenderingUtils.progressiveAnimation(zoomAnim, 1.0F, 0.001);
                 this.mouseFilterXAxis = new MouseFilter();
                 this.mouseFilterYAxis = new MouseFilter();
                 this.mc.renderGlobal.displayListEntitiesDirty = true;
             }
 
-            if (entity instanceof EntityLivingBase && ((EntityLivingBase)entity).getHealth() <= 0.0F)
-            {
-                float f1 = (float)((EntityLivingBase)entity).deathTime + partialTicks;
-                f /= (1.0F - 500.0F / (f1 + 500.0F)) * 2.0F + 1.0F;
+            if (var3 instanceof EntityLivingBase && ((EntityLivingBase) var3).getHealth() <= 0.0F) {
+                float var6 = (float) ((EntityLivingBase) var3).deathTime + partialTicks;
+                var4 /= (1.0F - 500.0F / (var6 + 500.0F)) * 2.0F + 1.0F;
             }
 
-            Block block = ActiveRenderInfo.getBlockAtEntityViewpoint(this.mc.theWorld, entity, partialTicks);
+            Block var61 = ActiveRenderInfo.getBlockAtEntityViewpoint(this.mc.theWorld, var3, partialTicks);
 
-            if (block.getMaterial() == Material.water)
-            {
-                f = f * 60.0F / 70.0F;
+            if (var61.getMaterial() == Material.water) {
+                var4 = var4 * 60.0F / 70.0F;
             }
 
-            return f;
+            return var4;
         }
     }
 
@@ -2684,11 +2675,7 @@ public class EntityRenderer implements IResourceManagerReloadListener
         {
             if (Config.getNewRelease() != null)
             {
-                String s = "HD_U".replace("HD_U", "HD Ultra").replace("L", "Light");
-                String s1 = s + " " + Config.getNewRelease();
-                ChatComponentText chatcomponenttext = new ChatComponentText(I18n.format("of.message.newVersion", new Object[] {s1}));
-                this.mc.ingameGUI.getChatGUI().printChatMessage(chatcomponenttext);
-                Config.setNewRelease((String)null);
+
             }
 
             if (Config.isNotify64BitJava())
