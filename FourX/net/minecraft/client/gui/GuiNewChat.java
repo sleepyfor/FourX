@@ -3,6 +3,9 @@ package net.minecraft.client.gui;
 import com.google.common.collect.Lists;
 import java.util.Iterator;
 import java.util.List;
+
+import lombok.Getter;
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,15 +19,18 @@ public class GuiNewChat extends Gui
 {
     private static final Logger logger = LogManager.getLogger();
     private final Minecraft mc;
+    @Getter
     private final List<String> sentMessages = Lists.<String>newArrayList();
     private final List<ChatLine> chatLines = Lists.<ChatLine>newArrayList();
     private final List<ChatLine> field_146253_i = Lists.<ChatLine>newArrayList();
     private int scrollPos;
     private boolean isScrolled;
+    private double animated;
 
     public GuiNewChat(Minecraft mcIn)
     {
         this.mc = mcIn;
+        animated = 0;
     }
 
     public void drawChat(int p_146230_1_)
@@ -79,10 +85,12 @@ public class GuiNewChat extends Gui
                             {
                                 int i2 = 0;
                                 int j2 = -i1 * 9;
-                                drawRect(i2, j2 - 9, i2 + l + 4, j2, l1 / 2 << 24);
+                                animated = (float) RenderingUtils.progressiveAnimation(animated, i2 + l + 4, 0.2);
+                                drawRect(i2, j2 - 9, animated, j2, l1 / 2 << 24);
+                                RenderingUtils.drawRectangle(i2, j2 - 9, i2 + 1.5f, j2, -1);
                                 String s = chatline.getChatComponent().getFormattedText();
                                 GlStateManager.enableBlend();
-                                this.mc.fontRendererObj.drawStringWithShadow(s, (float)i2, (float)(j2 - 8), 16777215 + (l1 << 24));
+                                this.mc.fontRendererObj.drawStringWithShadow(s, (float)i2 + 3, (float)(j2 - 8), -1);
                                 GlStateManager.disableAlpha();
                                 GlStateManager.disableBlend();
                             }
@@ -118,6 +126,7 @@ public class GuiNewChat extends Gui
      */
     public void clearChatMessages()
     {
+        animated = 0;
         this.field_146253_i.clear();
         this.chatLines.clear();
         this.sentMessages.clear();
@@ -177,6 +186,7 @@ public class GuiNewChat extends Gui
 
     public void refreshChat()
     {
+        animated = 0;
         this.field_146253_i.clear();
         this.resetScroll();
 
@@ -185,11 +195,6 @@ public class GuiNewChat extends Gui
             ChatLine chatline = (ChatLine)this.chatLines.get(i);
             this.setChatLine(chatline.getChatComponent(), chatline.getChatLineID(), chatline.getUpdatedCounter(), true);
         }
-    }
-
-    public List<String> getSentMessages()
-    {
-        return this.sentMessages;
     }
 
     /**
@@ -208,6 +213,7 @@ public class GuiNewChat extends Gui
      */
     public void resetScroll()
     {
+        animated = 0;
         this.scrollPos = 0;
         this.isScrolled = false;
     }

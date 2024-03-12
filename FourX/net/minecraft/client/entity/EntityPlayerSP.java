@@ -1,6 +1,7 @@
 package net.minecraft.client.entity;
 
 import net.fourx.Client;
+import net.fourx.addon.addons.BedwarsAddon;
 import net.fourx.addon.addons.ToggleSprint;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MovingSoundMinecartRiding;
@@ -194,6 +195,43 @@ public class EntityPlayerSP extends AbstractClientPlayer
         boolean flag = this.isSprinting();
 
         KeyBinding.setKeyBindState(mc.gameSettings.keyBindSprint.getKeyCode(), Client.INSTANCE.getAddonManager().getAddon(ToggleSprint.class).isState());
+
+        /*BedwarsAddon bw = (BedwarsAddon) Client.INSTANCE.getAddonManager().getAddon(BedwarsAddon.class);
+        if(mc.theWorld != null && Client.INSTANCE.getAddonManager().getAddon(BedwarsAddon.class).isState()) {
+            for (int i = 9; i < 35; i++) {
+//                if (mc.thePlayer.inventoryContainer.getSlot(i) != null) {
+                if (mc.thePlayer.inventoryContainer.getSlot(i).getStack().getItem() != null)
+                    bw.item = mc.thePlayer.inventoryContainer.getSlot(i).getStack().getItem();
+//                    if (item == Items.iron_ingot) {
+//                        BedwarsAddon.iron = mc.thePlayer.inventory.getStackInSlot(i).stackSize;
+//                    }
+//                    if (item == Items.gold_ingot && item != null) {
+//                        BedwarsAddon.gold = mc.thePlayer.inventory.getStackInSlot(i).stackSize;
+//                    }
+//                }
+                if (bw.item != null && bw.item == Items.iron_ingot) {
+                    BedwarsAddon.iron = mc.thePlayer.inventory.getStackInSlot(i).stackSize;
+                }
+            }
+        }*/
+        int iron = 0, gold = 0, diamond = 0, emerald = 0;
+        if(mc.theWorld != null && Client.INSTANCE.getAddonManager().getAddon(BedwarsAddon.class).isState()) {
+            for (int i = 9; i < 45; i++) {
+                ItemStack stack = mc.thePlayer.inventoryContainer.getSlot(i).getStack();
+                if (stack != null && stack.getItem() == Items.iron_ingot)
+                    iron += stack.stackSize;
+                if (stack != null && stack.getItem() == Items.gold_ingot)
+                    gold += stack.stackSize;
+                if (stack != null && stack.getItem() == Items.diamond)
+                    diamond += stack.stackSize;
+                if (stack != null && stack.getItem() == Items.emerald)
+                    emerald += stack.stackSize;
+                BedwarsAddon.iron = iron;
+                BedwarsAddon.gold = gold;
+                BedwarsAddon.diamond = diamond;
+                BedwarsAddon.emerald = emerald;
+            }
+        }
 
         if (flag != this.serverSprintState)
         {

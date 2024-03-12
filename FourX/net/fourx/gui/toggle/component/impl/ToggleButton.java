@@ -11,9 +11,12 @@ import net.minecraft.client.gui.Gui;
 
 import java.awt.*;
 
+import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
+import static org.lwjgl.opengl.GL11.glDisable;
+
 public class ToggleButton extends Component {
 
-    private double slide;
+    public double slide;
     public Addon addon;
 
     public ToggleButton(double x, double y, double width, double height, ToggleGUI parent, Addon addon, int color) {

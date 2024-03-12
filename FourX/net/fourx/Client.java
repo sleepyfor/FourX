@@ -17,7 +17,7 @@ import java.io.IOException;
 @Getter
 public enum Client {
     INSTANCE;
-    private final String name = "FourX", version = "2.1.0";
+    private final String name = "FourX", version = "2.1.5";
     public final int clientColor = new Color(152, 255, 255, 255).getRGB();
     private AddonManager addonManager;
     private FontManager fontManager;
@@ -39,35 +39,35 @@ public enum Client {
     }
 
     private void startRPC(){
-        started = System.currentTimeMillis();
-        DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(new ReadyCallback() {
-            @Override
-            public void apply(DiscordUser discordUser) {
-                updateRPC("Loading FourX...", "");
-            }
-        }).build();
-
-        DiscordRPC.discordInitialize("1164270803400007813", handlers, true);
-
-        new Thread("DiscordRPC"){
-            @Override
-            public void run(){
-                while (running)
-                    DiscordRPC.discordRunCallbacks();
-            }
-        }.start();
+//        started = System.currentTimeMillis();
+//        DiscordEventHandlers handlers = new DiscordEventHandlers.Builder().setReadyEventHandler(new ReadyCallback() {
+//            @Override
+//            public void apply(DiscordUser discordUser) {
+//                updateRPC("Loading FourX...", "");
+//            }
+//        }).build();
+//
+//        DiscordRPC.discordInitialize("1164270803400007813", handlers, true);
+//
+//        new Thread("DiscordRPC"){
+//            @Override
+//            public void run(){
+//                while (running)
+//                    DiscordRPC.discordRunCallbacks();
+//            }
+//        }.start();
     }
 
     public void stopRPC(){
-        running = false;
-        DiscordRPC.discordShutdown();
+//        running = false;
+//        DiscordRPC.discordShutdown();
     }
 
     public void updateRPC(String title, String details){
-        DiscordRichPresence.Builder builder = new DiscordRichPresence.Builder(title);
-        builder.setBigImage("logo", "");
-        builder.setDetails(details);
-        builder.setStartTimestamps(started);
-        DiscordRPC.discordUpdatePresence(builder.build());
+//        DiscordRichPresence.Builder builder = new DiscordRichPresence.Builder(title);
+//        builder.setBigImage("logo", "");
+//        builder.setDetails(details);
+//        builder.setStartTimestamps(started);
+//        DiscordRPC.discordUpdatePresence(builder.build());
     }
 }

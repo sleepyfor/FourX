@@ -53,8 +53,8 @@ public class ArmorDisplay extends Addon {
             mc.getRenderItem().zLevel = -150.0F;
             int s = mc.thePlayer.capabilities.isCreativeMode ? 15 : 0;
             for (ItemStack offset : (Collection<ItemStack>) stuff) {
-                mc.getRenderItem().renderItemAndEffectIntoGUI(errything, 2, 125 + split);
-                mc.getRenderItem().renderItemOverlays(Client.INSTANCE.getFontManager().getJbm14(), errything, 2, 125 + split);
+                mc.getRenderItem().renderItemAndEffectIntoGUI(errything, 2, 85 + split);
+                mc.getRenderItem().renderItemOverlays(Client.INSTANCE.getFontManager().getJbm14(), errything, 2, 85 + split);
             }
             mc.getRenderItem().zLevel = 0.0F;
             GlStateManager.disableBlend();

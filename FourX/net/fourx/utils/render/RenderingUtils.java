@@ -83,7 +83,7 @@ public class RenderingUtils {
 
     public static double progressiveAnimation( double now,  double desired,  double speed) {
         double dif = Math.abs(now - desired);
-        int fps = 144;
+        int fps = Minecraft.getDebugFPS();
         if (dif > 0.0) {
             double animationSpeed = MathUtils.roundToDecimalPlace(Math.min(10.0, Math.max(0.05, 144.0 / fps * (dif / 10.0) * speed)), 0.05);
             if (dif < animationSpeed) {
@@ -103,7 +103,24 @@ public class RenderingUtils {
         ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
         int factor = sr.getScaleFactor();
         glEnable(GL_SCISSOR_TEST);
-        glScissor(x, y, x + width,  y + height);
+        glScissor(x * factor, (sr.getScaledHeight() - (y + height)) * factor, ((x + width) - x) * factor, ((y + height) - y) * factor);
+    }
+
+    public static void cropBox(float x, float y, float width, float height) {
+        ScaledResolution scale = new ScaledResolution(Minecraft.getMinecraft());
+        int factor = scale.getScaleFactor();
+        glScissor((int) (x * factor), (int) ((scale.getScaledHeight() - height) * factor), (int) ((width - x) * factor), (int) ((height - y) * factor));
+    }
+
+    public static void makeCropBox(float left, float top, float right, float bottom) {
+        glPushMatrix();
+        glEnable(GL_SCISSOR_TEST);
+        cropBox(left, top, right, bottom);
+    }
+
+    public static void destroyCropBox() {
+        glDisable(GL_SCISSOR_TEST);
+        glPopMatrix();
     }
 
     public static void scale(float x, float y, float scale) {

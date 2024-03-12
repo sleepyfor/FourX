@@ -37,7 +37,7 @@ public class PotionDisplay extends Addon {
                     break;
             }
             PType = PType + ":\2477 " + Potion.getDurationString(effect);
-            font.drawStringWithShadow(PType, 2, 230 + y, -1);
+            font.drawStringWithShadow(PType, 2, 190 + y, -1);
             y += 10;
         }
     }
