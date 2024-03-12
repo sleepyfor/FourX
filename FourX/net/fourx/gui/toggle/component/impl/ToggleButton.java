@@ -39,7 +39,8 @@ public class ToggleButton extends Component {
             slide = RenderingUtils.progressiveAnimation(slide, width, 0.6);
         else
             slide = RenderingUtils.progressiveAnimation(slide, 0, 0.6);
-        Gui.drawRect(x, y + height - 1, x + slide, y + height, -1);
+        Gui.drawRect(x, y + height - 2, x + slide, y + height, color);
+        RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, x, y, x + width, y + height, -1);
         font.drawCenteredStringWithShadow(addon.getName(), (int) (x + width / 2), (int) (y + height / 2) - 4, color);
     }
 }

@@ -84,9 +84,8 @@ public class GuiButton extends Gui
         var color = enabled ? (hovered ? Client.INSTANCE.getClientColor() : -1) : Color.darkGray.getRGB();
         var font = Client.INSTANCE.getFontManager().getArial17();
         RenderingUtils.drawRectangle(xPosition, yPosition, xPosition + width, yPosition + height, new Color(10, 10, 10, 60).getRGB());
-        RenderingUtils.drawRectangle((float) xPosition, (float) (yPosition + height - 1), (float) (xPosition + length), yPosition + height, -1);
+        RenderingUtils.drawRectangle((float) xPosition, (float) (yPosition + height - 2), (float) (xPosition + length), yPosition + height, color);
         RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, xPosition, yPosition, xPosition + width, yPosition + height, -1);
-        RenderingUtils.drawRectangle((float) xPosition, (float) (yPosition + height - 1), (float) (xPosition + length), yPosition + height, -1);
         font.drawCenteredString(displayString, xPosition + (float) width / 2, yPosition + (float) (height - 8) / 2, color);
     }
 
