@@ -1,6 +1,8 @@
 package net.minecraft.client.gui.inventory;
 
 import java.io.IOException;
+
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -13,6 +15,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiInventory extends InventoryEffectRenderer
 {
@@ -70,11 +73,16 @@ public class GuiInventory extends InventoryEffectRenderer
     /**
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if (mc.theWorld == null) {
+            RenderingUtils.glColor(RenderingUtils.getRainbow(-16).getRGB());
+            RenderingUtils.drawImg(new ResourceLocation("images/newbackground.jpg"), 0, 0, width, height);
+        } else if (mc.currentScreen == this) {
+            RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, 0, 0, width, height, -1);
+        }
         super.drawScreen(mouseX, mouseY, partialTicks);
-        this.oldMouseX = (float)mouseX;
-        this.oldMouseY = (float)mouseY;
+        this.oldMouseX = (float) mouseX;
+        this.oldMouseY = (float) mouseY;
     }
 
     /**

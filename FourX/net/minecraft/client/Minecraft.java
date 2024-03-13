@@ -1913,7 +1913,12 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                         {
                             this.refreshResources();
                         }
-
+                        /*
+                        * Had to add this back here because whoever did the mcp shit didnt test all keybinds
+                        */
+                        if(k == gameSettings.keyBindFullscreen.getKeyCode()){
+                            toggleFullscreen();
+                        }
                         if (k == 17 && Keyboard.isKeyDown(61))
                         {
                             ;

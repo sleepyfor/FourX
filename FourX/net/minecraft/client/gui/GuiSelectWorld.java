@@ -7,10 +7,13 @@ import java.util.Collections;
 import java.util.Date;
 
 import net.fourx.Client;
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.AnvilConverterException;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.ISaveHandler;
@@ -231,9 +234,12 @@ public class GuiSelectWorld extends GuiScreen implements GuiYesNoCallback
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
+        RenderingUtils.glColor(RenderingUtils.getRainbow(-16).getRGB());
+        RenderingUtils.drawImg(new ResourceLocation("images/newbackground.jpg"), 0, 0, width, height);
         Client.INSTANCE.updateRPC("Singleplayer", "In The Menus");
         this.field_146638_t.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRendererObj, this.field_146628_f, this.width / 2, 20, 16777215);
+        GlStateManager.color(1, 1, 1, 1);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

@@ -56,6 +56,14 @@ public class RenderingUtils {
         drawRectangle(startX + 0.5f - width, endY - 0.5f, endX - 0.5f + width, endY - 0.5f + width, borderColor);
     }
 
+    public static void drawBorderCorneredRectangle(float startX, float startY, float endX, float endY, float width, int color, int borderColor) {
+        drawRectangle(startX, startY, endX, endY, color);
+        drawRectangle(startX + 2.5f - width, startY + 2, startX + 2.5f, endY - 2, borderColor);
+        drawRectangle(startX + 2.5f - width, startY + 2.5f - width, endX - 2.5f + width, startY + 2.5f, borderColor);
+        drawRectangle(endX - 2.5f, startY + 2, endX - 2.5f + width, endY - 2, borderColor);
+        drawRectangle(startX + 2.5f - width, endY - 2.5f, endX - 2.5f + width, endY - 2.5f + width, borderColor);
+    }
+
     public static void drawImg(ResourceLocation loc, double posX, double posY, double width, double height) {
         GlStateManager.pushMatrix();
         GlStateManager.enableAlpha();

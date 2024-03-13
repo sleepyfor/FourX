@@ -1,8 +1,11 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EnumPlayerModelParts;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiCustomizeSkin extends GuiScreen
 {
@@ -66,7 +69,12 @@ public class GuiCustomizeSkin extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
+        if(mc.theWorld == null) {
+            RenderingUtils.glColor(RenderingUtils.getRainbow(-16).getRGB());
+            RenderingUtils.drawImg(new ResourceLocation("images/newbackground.jpg"), 0, 0, width, height);
+        }else if(mc.currentScreen == this){
+            RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, 0,0, width, height, -1);
+        }
         this.drawCenteredString(this.fontRendererObj, this.title, this.width / 2, 20, 16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }

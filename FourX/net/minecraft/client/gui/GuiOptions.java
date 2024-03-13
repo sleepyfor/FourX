@@ -3,15 +3,18 @@ package net.minecraft.client.gui;
 import java.io.IOException;
 
 import net.fourx.Client;
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.client.audio.SoundEventAccessorComposite;
 import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.EnumDifficulty;
 
 public class GuiOptions extends GuiScreen implements GuiYesNoCallback
@@ -201,7 +204,14 @@ public class GuiOptions extends GuiScreen implements GuiYesNoCallback
     {
         Client.INSTANCE.updateRPC("Options", "In The Menus");
         //this.drawDefaultBackground();
+        if(mc.theWorld == null) {
+            RenderingUtils.glColor(RenderingUtils.getRainbow(-16).getRGB());
+            RenderingUtils.drawImg(new ResourceLocation("images/newbackground.jpg"), 0, 0, width, height);
+        }else if(mc.currentScreen == this){
+            RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, 0,0, width, height, -1);
+        }
         this.drawCenteredString(this.fontRendererObj, this.field_146442_a, this.width / 2, 15, 16777215);
+        GlStateManager.color(1, 1, 1, 1);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 }

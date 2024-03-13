@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.achievement.GuiAchievements;
@@ -571,8 +573,13 @@ public class GuiContainerCreative extends InventoryEffectRenderer
     /**
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if (mc.theWorld == null) {
+            RenderingUtils.glColor(RenderingUtils.getRainbow(-16).getRGB());
+            RenderingUtils.drawImg(new ResourceLocation("images/newbackground.jpg"), 0, 0, width, height);
+        } else if (mc.currentScreen == this) {
+            RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, 0, 0, width, height, -1);
+        }
         boolean flag = Mouse.isButtonDown(0);
         int i = this.guiLeft;
         int j = this.guiTop;
@@ -581,37 +588,31 @@ public class GuiContainerCreative extends InventoryEffectRenderer
         int i1 = k + 14;
         int j1 = l + 112;
 
-        if (!this.wasClicking && flag && mouseX >= k && mouseY >= l && mouseX < i1 && mouseY < j1)
-        {
+        if (!this.wasClicking && flag && mouseX >= k && mouseY >= l && mouseX < i1 && mouseY < j1) {
             this.isScrolling = this.needsScrollBars();
         }
 
-        if (!flag)
-        {
+        if (!flag) {
             this.isScrolling = false;
         }
 
         this.wasClicking = flag;
 
-        if (this.isScrolling)
-        {
-            this.currentScroll = ((float)(mouseY - l) - 7.5F) / ((float)(j1 - l) - 15.0F);
+        if (this.isScrolling) {
+            this.currentScroll = ((float) (mouseY - l) - 7.5F) / ((float) (j1 - l) - 15.0F);
             this.currentScroll = MathHelper.clamp_float(this.currentScroll, 0.0F, 1.0F);
-            ((GuiContainerCreative.ContainerCreative)this.inventorySlots).scrollTo(this.currentScroll);
+            ((GuiContainerCreative.ContainerCreative) this.inventorySlots).scrollTo(this.currentScroll);
         }
 
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray)
-        {
-            if (this.renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY))
-            {
+        for (CreativeTabs creativetabs : CreativeTabs.creativeTabArray) {
+            if (this.renderCreativeInventoryHoveringText(creativetabs, mouseX, mouseY)) {
                 break;
             }
         }
 
-        if (this.field_147064_C != null && selectedTabIndex == CreativeTabs.tabInventory.getTabIndex() && this.isPointInRegion(this.field_147064_C.xDisplayPosition, this.field_147064_C.yDisplayPosition, 16, 16, mouseX, mouseY))
-        {
+        if (this.field_147064_C != null && selectedTabIndex == CreativeTabs.tabInventory.getTabIndex() && this.isPointInRegion(this.field_147064_C.xDisplayPosition, this.field_147064_C.yDisplayPosition, 16, 16, mouseX, mouseY)) {
             this.drawCreativeTabHoveringText(I18n.format("inventory.binSlot", new Object[0]), mouseX, mouseY);
         }
 

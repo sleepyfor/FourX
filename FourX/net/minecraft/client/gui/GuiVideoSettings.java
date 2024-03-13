@@ -1,8 +1,11 @@
 package net.minecraft.client.gui;
 
 import java.io.IOException;
+
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.ResourceLocation;
 import optifine.Config;
 import optifine.GuiAnimationSettingsOF;
 import optifine.GuiDetailSettingsOF;
@@ -177,7 +180,12 @@ public class GuiVideoSettings extends GuiScreen
      */
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawDefaultBackground();
+        if(mc.theWorld == null) {
+            RenderingUtils.glColor(RenderingUtils.getRainbow(-16).getRGB());
+            RenderingUtils.drawImg(new ResourceLocation("images/newbackground.jpg"), 0, 0, width, height);
+        }else if(mc.currentScreen == this){
+            RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, 0,0, width, height, -1);
+        }
         this.drawCenteredString(this.fontRendererObj, this.screenTitle, this.width / 2, 15, 16777215);
         String s = Config.getVersion();
         String s1 = "HD_U";

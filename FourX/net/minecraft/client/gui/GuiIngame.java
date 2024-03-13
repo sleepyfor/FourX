@@ -10,6 +10,9 @@ import java.util.Collection;
 import java.util.Random;
 
 import net.fourx.Client;
+import net.fourx.addon.addons.JoinGames;
+import net.fourx.gui.joingames.JoinGamesGui;
+import net.fourx.gui.toggle.ToggleGUI;
 import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -350,6 +353,10 @@ public class GuiIngame extends Gui
         {
             this.overlayPlayerList.updatePlayerList(true);
             this.overlayPlayerList.renderPlayerlist(i, scoreboard, scoreobjective1);
+        }
+
+        if(Client.INSTANCE.getAddonManager().getAddon(JoinGames.class).isState() && !(mc.currentScreen instanceof JoinGamesGui) && mc.currentScreen instanceof ToggleGUI){
+            mc.displayGuiScreen(new JoinGamesGui());
         }
 
         Gui.drawRect(0,0,0,0,0);

@@ -100,8 +100,9 @@ public abstract class GuiContainer extends GuiScreen
     /**
      * Draws the screen and all the components in it. Args : mouseX, mouseY, renderPartialTicks
      */
-    public void drawScreen(int mouseX, int mouseY, float partialTicks)
-    {
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if (mc.currentScreen == this)
+            RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, 0, 0, width, height, -1);
         scale = (float) RenderingUtils.progressiveAnimation(scale, 1, 0.6);
         RenderingUtils.scale((float) (this.width / 2), (float) (this.height / 2), scale);
         int i = this.guiLeft;
@@ -114,22 +115,20 @@ public abstract class GuiContainer extends GuiScreen
         super.drawScreen(mouseX, mouseY, partialTicks);
         RenderHelper.enableGUIStandardItemLighting();
         GlStateManager.pushMatrix();
-        GlStateManager.translate((float)i, (float)j, 0.0F);
+        GlStateManager.translate((float) i, (float) j, 0.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.enableRescaleNormal();
         this.theSlot = null;
         int k = 240;
         int l = 240;
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float)k / 1.0F, (float)l / 1.0F);
+        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, (float) k / 1.0F, (float) l / 1.0F);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-        for (int i1 = 0; i1 < this.inventorySlots.inventorySlots.size(); ++i1)
-        {
-            Slot slot = (Slot)this.inventorySlots.inventorySlots.get(i1);
+        for (int i1 = 0; i1 < this.inventorySlots.inventorySlots.size(); ++i1) {
+            Slot slot = (Slot) this.inventorySlots.inventorySlots.get(i1);
             this.drawSlot(slot);
 
-            if (this.isMouseOverSlot(slot, mouseX, mouseY) && slot.canBeHovered())
-            {
+            if (this.isMouseOverSlot(slot, mouseX, mouseY) && slot.canBeHovered()) {
                 this.theSlot = slot;
                 GlStateManager.disableLighting();
                 GlStateManager.disableDepth();
@@ -149,24 +148,19 @@ public abstract class GuiContainer extends GuiScreen
         InventoryPlayer inventoryplayer = this.mc.thePlayer.inventory;
         ItemStack itemstack = this.draggedStack == null ? inventoryplayer.getItemStack() : this.draggedStack;
 
-        if (itemstack != null)
-        {
+        if (itemstack != null) {
             int j2 = 8;
             int k2 = this.draggedStack == null ? 8 : 16;
             String s = null;
 
-            if (this.draggedStack != null && this.isRightMouseClick)
-            {
+            if (this.draggedStack != null && this.isRightMouseClick) {
                 itemstack = itemstack.copy();
-                itemstack.stackSize = MathHelper.ceiling_float_int((float)itemstack.stackSize / 2.0F);
-            }
-            else if (this.dragSplitting && this.dragSplittingSlots.size() > 1)
-            {
+                itemstack.stackSize = MathHelper.ceiling_float_int((float) itemstack.stackSize / 2.0F);
+            } else if (this.dragSplitting && this.dragSplittingSlots.size() > 1) {
                 itemstack = itemstack.copy();
                 itemstack.stackSize = this.dragSplittingRemnant;
 
-                if (itemstack.stackSize == 0)
-                {
+                if (itemstack.stackSize == 0) {
                     s = "" + EnumChatFormatting.YELLOW + "0";
                 }
             }
@@ -174,27 +168,24 @@ public abstract class GuiContainer extends GuiScreen
             this.drawItemStack(itemstack, mouseX - i - j2, mouseY - j - k2, s);
         }
 
-        if (this.returningStack != null)
-        {
-            float f = (float)(Minecraft.getSystemTime() - this.returningStackTime) / 100.0F;
+        if (this.returningStack != null) {
+            float f = (float) (Minecraft.getSystemTime() - this.returningStackTime) / 100.0F;
 
-            if (f >= 1.0F)
-            {
+            if (f >= 1.0F) {
                 f = 1.0F;
                 this.returningStack = null;
             }
 
             int l2 = this.returningStackDestSlot.xDisplayPosition - this.touchUpX;
             int i3 = this.returningStackDestSlot.yDisplayPosition - this.touchUpY;
-            int l1 = this.touchUpX + (int)((float)l2 * f);
-            int i2 = this.touchUpY + (int)((float)i3 * f);
-            this.drawItemStack(this.returningStack, l1, i2, (String)null);
+            int l1 = this.touchUpX + (int) ((float) l2 * f);
+            int i2 = this.touchUpY + (int) ((float) i3 * f);
+            this.drawItemStack(this.returningStack, l1, i2, (String) null);
         }
 
         GlStateManager.popMatrix();
 
-        if (inventoryplayer.getItemStack() == null && this.theSlot != null && this.theSlot.getHasStack())
-        {
+        if (inventoryplayer.getItemStack() == null && this.theSlot != null && this.theSlot.getHasStack()) {
             ItemStack itemstack1 = this.theSlot.getStack();
             this.renderToolTip(itemstack1, mouseX, mouseY);
         }

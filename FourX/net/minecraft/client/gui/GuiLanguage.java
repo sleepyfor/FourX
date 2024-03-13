@@ -6,11 +6,14 @@ import java.io.IOException;
 import java.util.Map;
 
 import net.fourx.Client;
+import net.fourx.utils.render.RenderingUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.Language;
 import net.minecraft.client.resources.LanguageManager;
 import net.minecraft.client.settings.GameSettings;
+import net.minecraft.util.ResourceLocation;
 
 public class GuiLanguage extends GuiScreen
 {
@@ -103,9 +106,16 @@ public class GuiLanguage extends GuiScreen
     public void drawScreen(int mouseX, int mouseY, float partialTicks)
     {
         Client.INSTANCE.updateRPC("Language", "In The Menus");
+        if(mc.theWorld == null) {
+            RenderingUtils.glColor(RenderingUtils.getRainbow(-16).getRGB());
+            RenderingUtils.drawImg(new ResourceLocation("images/newbackground.jpg"), 0, 0, width, height);
+        }else if(mc.currentScreen == this){
+            RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL, 0,0, width, height, -1);
+        }
         this.list.drawScreen(mouseX, mouseY, partialTicks);
         this.drawCenteredString(this.fontRendererObj, I18n.format("options.language", new Object[0]), this.width / 2, 16, 16777215);
         this.drawCenteredString(this.fontRendererObj, "(" + I18n.format("options.languageWarning", new Object[0]) + ")", this.width / 2, this.height - 56, 8421504);
+        GlStateManager.color(1, 1, 1, 1);
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
 

@@ -21,6 +21,7 @@ public class AddonManager {
         registerAddon(PotionDisplay.class, new PotionDisplay());
         registerAddon(ArmorDisplay.class, new ArmorDisplay());
         registerAddon(BedwarsAddon.class, new BedwarsAddon());
+        registerAddon(JoinGames.class, new JoinGames());
     }
 
     public void registerAddon(Class clazz, Addon addon) {
