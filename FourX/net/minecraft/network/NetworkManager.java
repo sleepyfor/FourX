@@ -151,22 +151,15 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
         this.closeChannel(chatcomponenttranslation);
     }
 
-    protected void channelRead0(ChannelHandlerContext p_channelRead0_1_, Packet p_channelRead0_2_) throws Exception
-    {
-        if(p_channelRead0_2_ instanceof S02PacketChat && Client.INSTANCE.getAddonManager().getAddon(AutoGG.class).isState())
-            if(((S02PacketChat) p_channelRead0_2_).getChatComponent().getUnformattedText().contains("Reward Summary"))
+    protected void channelRead0(ChannelHandlerContext context, Packet packet) throws Exception {
+        if (packet instanceof S02PacketChat && Client.INSTANCE.getAddonManager().getAddon(AutoGG.class).isState())
+            if (((S02PacketChat) packet).getChatComponent().getUnformattedText().contains("Reward Summary"))
                 Minecraft.getMinecraft().thePlayer.sendChatMessage("gg");
         if (this.channel.isOpen())
-        {
-            try
-            {
-                p_channelRead0_2_.processPacket(this.packetListener);
+            try {
+                packet.processPacket(this.packetListener);
+            } catch (ThreadQuickExitException ignored) {
             }
-            catch (ThreadQuickExitException var4)
-            {
-                ;
-            }
-        }
     }
 
     /**
@@ -175,8 +168,8 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
      */
     public void setNetHandler(INetHandler handler)
     {
-        Validate.notNull(handler, "packetListener", new Object[0]);
-        logger.debug("Set listener of {} to {}", new Object[] {this, handler});
+        Validate.notNull(handler, "packetListener");
+        logger.debug("Set listener of {} to {}", this, handler);
         this.packetListener = handler;
     }
 
@@ -185,7 +178,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
         if (this.isChannelOpen())
         {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, (GenericFutureListener <? extends Future <? super Void >> [])null);
+            this.dispatchPacket(packetIn, null);
         }
         else
         {
@@ -207,7 +200,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
         if (this.isChannelOpen())
         {
             this.flushOutboundQueue();
-            this.dispatchPacket(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener));
+            this.dispatchPacket(packetIn, ArrayUtils.add(listeners, 0, listener));
         }
         else
         {
@@ -215,7 +208,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
 
             try
             {
-                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, (GenericFutureListener[])ArrayUtils.add(listeners, 0, listener)));
+                this.outboundPacketsQueue.add(new NetworkManager.InboundHandlerTuplePacketListener(packetIn, ArrayUtils.add(listeners, 0, listener)));
             }
             finally
             {
@@ -364,7 +357,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
             lazyloadbase = CLIENT_NIO_EVENTLOOP;
         }
 
-        ((Bootstrap)((Bootstrap)((Bootstrap)(new Bootstrap()).group((EventLoopGroup)lazyloadbase.getValue())).handler(new ChannelInitializer<Channel>()
+        (new Bootstrap()).group(lazyloadbase.getValue()).handler(new ChannelInitializer<Channel>()
         {
             protected void initChannel(Channel p_initChannel_1_) throws Exception
             {
@@ -379,7 +372,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
 
                 p_initChannel_1_.pipeline().addLast((String)"timeout", (ChannelHandler)(new ReadTimeoutHandler(30))).addLast((String)"splitter", (ChannelHandler)(new MessageDeserializer2())).addLast((String)"decoder", (ChannelHandler)(new MessageDeserializer(EnumPacketDirection.CLIENTBOUND))).addLast((String)"prepender", (ChannelHandler)(new MessageSerializer2())).addLast((String)"encoder", (ChannelHandler)(new MessageSerializer(EnumPacketDirection.SERVERBOUND))).addLast((String)"packet_handler", (ChannelHandler)networkmanager);
             }
-        })).channel(oclass)).connect(p_181124_0_, p_181124_1_).syncUninterruptibly();
+        }).channel(oclass).connect(p_181124_0_, p_181124_1_).syncUninterruptibly();
         return networkmanager;
     }
 

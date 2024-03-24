@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
+import lombok.Getter;
 import net.fourx.Client;
 import net.fourx.addon.addons.JoinGames;
 import net.fourx.gui.joingames.JoinGamesGui;
@@ -63,6 +64,7 @@ public class GuiIngame extends Gui
 
     /** ChatGUI instance that retains all previous chat data */
     private final GuiNewChat persistantChatGUI;
+    @Getter
     private int updateCounter;
 
     /** The string specifying which record music is playing */
@@ -83,6 +85,7 @@ public class GuiIngame extends Gui
     private final GuiOverlayDebug overlayDebug;
 
     /** The spectator GUI for this in-game GUI instance */
+    @Getter
     private final GuiSpectator spectatorGui;
     private final GuiPlayerTabOverlay overlayPlayerList;
     private int field_175195_w;
@@ -648,7 +651,7 @@ public class GuiIngame extends Gui
 
             this.playerHealth = i;
             int j = this.lastPlayerHealth;
-            this.rand.setSeed((long)(this.updateCounter * 312871));
+            this.rand.setSeed(this.updateCounter * 312871L);
             boolean flag1 = false;
             FoodStats foodstats = entityplayer.getFoodStats();
             int k = foodstats.getFoodLevel();
@@ -1201,19 +1204,9 @@ public class GuiIngame extends Gui
         return this.persistantChatGUI;
     }
 
-    public int getUpdateCounter()
-    {
-        return this.updateCounter;
-    }
-
     public FontRenderer getFontRenderer()
     {
         return this.mc.fontRendererObj;
-    }
-
-    public GuiSpectator getSpectatorGui()
-    {
-        return this.spectatorGui;
     }
 
     public GuiPlayerTabOverlay getTabList()
