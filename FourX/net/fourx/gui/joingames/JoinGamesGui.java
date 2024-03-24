@@ -35,6 +35,8 @@ public class JoinGamesGui extends GuiScreen {
         RenderingUtils.drawBlurredRect(RenderingUtils.BlurType.NORMAL,x, y, x + width + 4, y + height + 4, -1);
         Client.INSTANCE.getFontManager().getArial17().drawCenteredStringWithShadow("Join Bedwars", x + (width / 2), y + 9, -1);
         Client.INSTANCE.getFontManager().getArial17().drawCenteredStringWithShadow("Join Skywars", x + (width / 2), y + 70, -1);
+        Client.INSTANCE.getFontManager().getArial17().drawCenteredStringWithShadow("Join Murder Mystery", x + (width / 2), y + 132, -1);
+        Client.INSTANCE.getFontManager().getArial17().drawCenteredStringWithShadow("Join Other Games", x + (width / 2), y + 172, -1);
         for (val button : buttons){
             var hovered = isHovered(mouseX, mouseY, (float) button.x, (float) button.y, (float) button.width, (float) button.height);
             button.color = hovered ? Client.INSTANCE.getClientColor() : -1;
@@ -64,6 +66,10 @@ public class JoinGamesGui extends GuiScreen {
         buttons.add(new JoinButton((int) (x + 124), (int) (y + 82), 120, 20, this, "/play solo_insane", "Solo Skywars Insane", -1));
         buttons.add(new JoinButton((int) (x + 2), (int) (y + 104), 120, 20, this, "/play teams_normal", "Doubles Skywars Normal", -1));
         buttons.add(new JoinButton((int) (x + 124), (int) (y + 104), 120, 20, this, "/play teams_insane", "Doubles Skywars Insane", -1));
+        buttons.add(new JoinButton((int) (x + 2), (int) (y + 144), 120, 20, this, "/play murder_classic", "Murder Mystery Solo", -1));
+        buttons.add(new JoinButton((int) (x + 124), (int) (y + 144), 120, 20, this, "/play murder_double_up", "Murder Mystery Double Up", -1));
+        buttons.add(new JoinButton((int) (x + 2), (int) (y + 184), 120, 20, this, "/play pit", "The Pit", -1));
+        buttons.add(new JoinButton((int) (x + 124), (int) (y + 184), 120, 20, this, "/play sb", "Skyblock", -1));
         super.initGui();
     }
 

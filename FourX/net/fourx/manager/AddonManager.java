@@ -22,6 +22,7 @@ public class AddonManager {
         registerAddon(ArmorDisplay.class, new ArmorDisplay());
         registerAddon(BedwarsAddon.class, new BedwarsAddon());
         registerAddon(JoinGames.class, new JoinGames());
+        registerAddon(AutoGG.class, new AutoGG());
     }
 
     public void registerAddon(Class clazz, Addon addon) {

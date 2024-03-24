@@ -76,6 +76,7 @@ public class ToggleGUI extends GuiScreen {
         addons.add(new ToggleButton(x + 124, y + 90, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(ArmorDisplay.class), -1));
         addons.add(new ToggleButton(x + 2, y + 112, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(BedwarsAddon.class), -1));
         addons.add(new ToggleButton(x + 124, y + 112, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(JoinGames.class), -1));
+        addons.add(new ToggleButton(x + 2, y + 134, 120, 20, this, Client.INSTANCE.getAddonManager().getAddon(AutoGG.class), -1));
     }
 
     @Override

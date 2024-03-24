@@ -99,6 +99,7 @@ public class GuiIngame extends Gui
 
     /** Used with updateCounter to make the heart bar flash */
     private long healthUpdateCounter = 0L;
+    private double animated;
     private static final String __OBFID = "CL_00000661";
 
     public GuiIngame(Minecraft mcIn)
@@ -376,8 +377,9 @@ public class GuiIngame extends Gui
             this.zLevel = -90.0F;
             RenderingUtils.drawBorderedRectangle(i - 91, sr.getScaledHeight() - 22,
                     i + 91, sr.getScaledHeight() - 1, 1, new Color(0, 0, 0, 125).getRGB(), new Color(152, 218, 226, 255).getRGB());
-            RenderingUtils.drawRectangle(i - 91 + 0.5f + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 22 + 0.5f,
-                    i - 69 - 0.5f + entityplayer.inventory.currentItem * 20, sr.getScaledHeight() - 1.5f, new Color(152, 218, 226, 100).getRGB());
+            animated = RenderingUtils.progressiveAnimation(animated, i - 91 + 0.5f + entityplayer.inventory.currentItem * 20, 0.8);
+            RenderingUtils.drawRectangle((float) animated, sr.getScaledHeight() - 22 + 0.5f,
+                    (float) (animated + 21), sr.getScaledHeight() - 1.5f, new Color(152, 218, 226, 100).getRGB());
             this.zLevel = f;
             GlStateManager.enableRescaleNormal();
             GlStateManager.enableBlend();
